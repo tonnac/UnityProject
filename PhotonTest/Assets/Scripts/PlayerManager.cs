@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
+
 
 namespace Com.PUN
 {
@@ -49,6 +51,15 @@ namespace Com.PUN
         #endregion
         #region MonoBehiviour Callbacks
 
+        public override void OnDisable()
+        {
+            base.OnDisable();
+
+#if UNITY_5_4_OR_NEWER
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+#endif
+        }
+
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
         /// </summary>
@@ -67,12 +78,12 @@ namespace Com.PUN
             // used in GameManager.cs: we keep track of the localPlayer instance to prevent instantiation when levels are synchronized
             if (photonView.IsMine)
             {
-                PlayerManager.LocalPlayerInstance = this.gameObject;
+                LocalPlayerInstance = gameObject;
             }
 
             // #Critical
             // we flag as don't destroy on load so that instance survives level synchronization, thus giving a seamless experience when levels load.
-            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()
@@ -102,10 +113,7 @@ namespace Com.PUN
 
 
 #if UNITY_5_4_OR_NEWER
-            UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) =>
-            {
-                this.CalledOnLevelWasLoaded(scene.buildIndex);
-            };
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
 #endif
         }
 
@@ -115,16 +123,16 @@ namespace Com.PUN
             if (photonView.IsMine)
             {
                 ProcessInput();
+
+                if (Health <= 0f)
+                {
+                    GameManager.Instance.LeaveRoom();
+                }
             }
 
             if (null != beams && IsFiring != beams.activeSelf)
             {
                 beams.SetActive(IsFiring);
-            }
-
-            if(Health <= 0f)
-            {
-                GameManager.Instance.LeaveRoom();
             }
         }
 
@@ -159,7 +167,7 @@ namespace Com.PUN
         }
 
 
-#if UNITY_5_4_OR_NEWER
+#if !UNITY_5_4_OR_NEWER
         void OnLevelWasLoaded(int level)
         {
             this.CalledOnLevelWasLoaded(level);
@@ -171,7 +179,7 @@ namespace Com.PUN
 
         void CalledOnLevelWasLoaded(int level)
         {
-            if (Physics.Raycast(transform.position, -Vector3.up, 5f))
+            if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
             {
                 transform.position = new Vector3(0f, 5f, 0f);
             }
@@ -195,6 +203,11 @@ namespace Com.PUN
                     IsFiring = false;
                 }
             }
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode loadingMode)
+        {
+            this.CalledOnLevelWasLoaded(scene.buildIndex);
         }
 
         #endregion

@@ -14,6 +14,8 @@ namespace Com.PUN
         [SerializeField]
         private byte maxPlayersPerRoom = 4;
 
+        bool isConnecting = false;
+
         #endregion
 
         #region Private Fields
@@ -43,13 +45,17 @@ namespace Com.PUN
 
         public override void OnConnectedToMaster()
         {
-            // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
-            Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-            PhotonNetwork.JoinRandomRoom();
+            if (isConnecting)
+            {
+                // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
+                Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+                PhotonNetwork.JoinRandomRoom();
+            }
         }
 
         public override void OnDisconnected(DisconnectCause cause)
         {
+            isConnecting = false;
             SetProgressActive(false);
             Debug.LogWarningFormat("PUN Basics Tutorial/Launcher: OnDisconnected() was claaed by PUN with reason{0}", cause);
         }
@@ -83,6 +89,8 @@ namespace Com.PUN
         #region Public Methods
         public void Connect()
         {
+            isConnecting = true;
+
             SetProgressActive(true);
 
             if(PhotonNetwork.IsConnected)

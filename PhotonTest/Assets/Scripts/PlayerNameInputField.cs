@@ -41,11 +41,11 @@ namespace Com.PUN
 
         public void SetPlayerName(string value)
         {
-            if(string.IsNullOrEmpty(value))
-            {
-                Debug.LogError("Player Name is null or empty");
-                return;
-            }
+            //if(string.IsNullOrEmpty(value))
+            //{
+            //    Debug.LogError("Player Name is null or empty");
+            //    return;
+            //}
             PhotonNetwork.NickName = value;
 
             PlayerPrefs.SetString(playerNamePrefKey, value);
