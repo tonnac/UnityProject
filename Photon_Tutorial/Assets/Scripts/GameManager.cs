@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,12 +10,31 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     #region Public Fields
     public static GameManager Instance;
-    #endregion
 
+    [Tooltip("The prefab to use for representing the player")]
+    public GameObject playerPrefab;
+    #endregion
     #region Photon Callbacks
 
     private void Start() {
         Instance = this;
+
+        if(null == playerPrefab)
+        {
+            Debug.LogError("<color=ref><a>Missing</a></color> playerPrefab Reference. Please set it up in GameObject 'GameManager'", this);
+        }
+        else
+        {
+            if(null == PlayerManager.LocalPlayerInstance)
+            {
+                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f,5f,0f), Quaternion.identity, 0);
+            }
+            else
+            {
+                Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+            }
+        }
     }
 
     public override void OnLeftRoom()
@@ -46,7 +66,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
-
     #region Public Methods
     public void LeaveRoom()
     {
