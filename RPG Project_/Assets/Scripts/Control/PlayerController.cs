@@ -19,11 +19,13 @@ namespace RPG.Control
             foreach (RaycastHit hit in hits)
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if(!GetComponent<Fighter>().CanAttack(target)) continue;
+                
+                if(null == target) continue;
+                if(!GetComponent<Fighter>().CanAttack(target.gameObject)) continue;
 
                 if(Input.GetMouseButtonDown(0))
                 {
-                    GetComponent<Fighter>().Attack(target);
+                    GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
             }
@@ -32,9 +34,7 @@ namespace RPG.Control
 
         private bool InteractWithMovement()
         {
-            bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hit);
-
-            if (hasHit)
+            if (Physics.Raycast(GetMouseRay(), out RaycastHit hit))
             {
                 if(Input.GetMouseButton(0))
                 {
