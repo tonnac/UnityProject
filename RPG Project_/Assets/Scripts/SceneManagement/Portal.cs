@@ -35,7 +35,7 @@ namespace RPG.SceneManagement
 
         private IEnumerator Transition()
         {
-            if(sceneToLoad < 0)
+            if (sceneToLoad < 0)
             {
                 Debug.LogError("Scene to load not set.");
                 yield break;
@@ -44,23 +44,34 @@ namespace RPG.SceneManagement
             DontDestroyOnLoad(gameObject);
 
             Fader fader = FindObjectOfType<Fader>();
+            
             yield return fader.FadeOut(fadeOutTime);
-            yield return SceneManager.LoadSceneAsync(sceneToLoad);
-            yield return new WaitForSeconds(fadeWaitTime);
 
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+            wrapper.Save();
+
+            yield return SceneManager.LoadSceneAsync(sceneToLoad);
+
+            wrapper.Load();
+            
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
 
+            wrapper.Save();
+
+            yield return new WaitForSeconds(fadeWaitTime);
             yield return fader.FadeIn(fadeInTime);
+
             Destroy(gameObject);
         }
 
         private void UpdatePlayer(Portal otherPortal)
         {
             GameObject player = GameObject.FindWithTag("Player");
-            Debug.Log(otherPortal.spawnPoint.position);
-            player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);
+            player.GetComponent<NavMeshAgent>().enabled = false;
+            player.transform.position = otherPortal.spawnPoint.position;
             player.transform.rotation = otherPortal.spawnPoint.rotation;
+            player.GetComponent<NavMeshAgent>().enabled = true;
         }
 
         private Portal GetOtherPortal()
