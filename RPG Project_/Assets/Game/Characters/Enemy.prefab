@@ -28,6 +28,7 @@ MonoBehaviour:
   suspictionTime: 5
   waypoiontTolerance: 1
   waypointDwellTime: 3
+  patrolSpeedFraction: 0.2
   patrolPath: {fileID: 0}
 --- !u!1001 &3343984964948505601
 PrefabInstance:
@@ -98,6 +99,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 114230413218962826, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: healthPoints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4593845876468296130, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -152,11 +158,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114230413218962826, guid: 094bcdd7dd8709c4a9f0926254e43619,
-        type: 3}
-      propertyPath: healthPoints
-      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5018286147055786476, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
