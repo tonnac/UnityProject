@@ -21,7 +21,7 @@ namespace RPG.SceneManagement
         [SerializeField] DestinationIdentifier destination;
         [SerializeField] float fadeOutTime = 1f;
         [SerializeField] float fadeInTime = 2f;
-        [SerializeField] float fadeWaitTime = 0f;
+        [SerializeField] float fadeWaitTime = 1f;
         private void OnTriggerEnter(Collider other) 
         {
             if(other.tag == "Player")
@@ -53,9 +53,9 @@ namespace RPG.SceneManagement
 
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
-            savingWrapper.Load();
-
             yield return new WaitForSeconds(fadeWaitTime);
+
+            savingWrapper.Load();
 
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
