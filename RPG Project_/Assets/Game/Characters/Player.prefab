@@ -183,6 +183,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 22100000, guid: c8904feffad2f77428a57ff569498ddf,
         type: 2}
+    - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: handTransform
+      value: 
+      objectReference: {fileID: 465438537848417380}
+    - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b73fc3802ef0d84aa0be4075ced258e,
+        type: 2}
     - target: {fileID: 3224785635636292704, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: uniqueIdentifier
