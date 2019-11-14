@@ -17,7 +17,6 @@ namespace RPG.Saving
         {
             return uniqueIdentifier;
         }
-
         public object CaptureState()
         {
             SaveDict state = new SaveDict();
@@ -27,7 +26,6 @@ namespace RPG.Saving
             }
             return state;
         }
-
         public void RestoreState(object state)
         {
             SaveDict stateDict = (SaveDict)(state);
@@ -41,6 +39,7 @@ namespace RPG.Saving
                 }
             }
         }
+#if UNITY_EDITOR
         private void Update() 
         {
             if(Application.IsPlaying(gameObject)) return;
@@ -56,7 +55,7 @@ namespace RPG.Saving
 
             globalLookup[property.stringValue] = this;
         }
-
+#endif
         private bool IsUnique(string candidate)
         {
             if(!globalLookup.ContainsKey(candidate)) return true;
@@ -72,7 +71,6 @@ namespace RPG.Saving
                 globalLookup.Remove(candidate);
                 return true;
             }
-
             return false;
         }
     }
