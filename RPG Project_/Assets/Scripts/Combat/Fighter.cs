@@ -12,6 +12,7 @@ namespace RPG.Combat
         [SerializeField] float weaponDamage = 5f;
         [SerializeField] GameObject weaponPrefab = null;
         [SerializeField] Transform handTrasnform = null;
+        [SerializeField] AnimatorOverrideController weaponOverride = null;
         Health target;
         float timeSinceLastAttack = float.PositiveInfinity;
 
@@ -95,7 +96,10 @@ namespace RPG.Combat
         }
         private void SpawnWeapon()
         {
+            if(null == weaponPrefab) return;
             Instantiate(weaponPrefab, handTrasnform);
+            Animator animator = GetComponent<Animator>();
+            animator.runtimeAnimatorController = weaponOverride;
         }
     }
 }
