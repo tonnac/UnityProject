@@ -48,10 +48,8 @@ namespace RPG.Saving
 
         private void CaptureState(SaveDict state)
         {
-            Array.ForEach(FindObjectsOfType<SaveableEntity>(), saveable =>
-            {
-                state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
-            });
+            Array.ForEach(FindObjectsOfType<SaveableEntity>(), saveable => 
+            state[saveable.GetUniqueIdentifier()] = saveable.CaptureState());
         }
 
         private void RestoreState(SaveDict state)
