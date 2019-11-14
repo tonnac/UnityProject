@@ -18,3 +18,5 @@ MonoBehaviour:
   equippedPrefab: {fileID: 7132564523390017407, guid: d75dfd4aa85e12b40b5f075bb78971c8,
     type: 3}
   isRigghtHanded: 0
+  projectile: {fileID: 8096411150283398860, guid: 1cc5fe13e93912d44b4cb651abadf864,
+    type: 3}

@@ -205,6 +205,12 @@ PrefabInstance:
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 465438537848343564}
+    - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: defaultWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: e79c857ae878a194c83b42d2fe85d5b7,
+        type: 2}
     - target: {fileID: 114230413218962826, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: healthPoints
