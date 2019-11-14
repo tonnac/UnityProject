@@ -1,3 +1,4 @@
+using System;
 using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
@@ -9,8 +10,17 @@ namespace RPG.Combat
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttack = 1f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] GameObject weaponPrefab = null;
+        [SerializeField] Transform handTrasnform = null;
         Health target;
         float timeSinceLastAttack = float.PositiveInfinity;
+
+        private void Start() 
+        {
+            SpawnWeapon();
+        }
+
+
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
@@ -64,6 +74,7 @@ namespace RPG.Combat
             Health targetToTest = combatTarget.GetComponent<Health>();
             return targetToTest != null && !targetToTest.IsDead;
         }
+        
         public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
@@ -81,6 +92,10 @@ namespace RPG.Combat
         {
             GetComponent<Animator>().ResetTrigger("attack");
             GetComponent<Animator>().SetTrigger("stopAttack");
+        }
+        private void SpawnWeapon()
+        {
+            Instantiate(weaponPrefab, handTrasnform);
         }
     }
 }
