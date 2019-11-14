@@ -2,13 +2,15 @@ using System;
 using RPG.Core;
 using RPG.Movement;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RPG.Combat
 {
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float timeBetweenAttack = 1f;
-        [SerializeField] Transform handTransform = null;
+        [SerializeField] Transform leftHandTransform = null;
+        [SerializeField] Transform rightHandTransform = null;
         [SerializeField] Weapon defaultWeapon = null;
         Health target;
         float timeSinceLastAttack = float.PositiveInfinity;
@@ -95,7 +97,7 @@ namespace RPG.Combat
         public void EquipWeapon(Weapon weapon)
         {
             currentWeapon = weapon;
-            weapon.Spawn(handTransform, GetComponent<Animator>());
+            weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
         }
     }
 }

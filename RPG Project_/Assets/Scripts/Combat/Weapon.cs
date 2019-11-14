@@ -9,17 +9,16 @@
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float weaponDamage = 5f;
         [SerializeField] AnimatorOverrideController animatorOverride = null;
-        
         [FormerlySerializedAs("equippedPrefab")]
-        [SerializeField] 
-        GameObject equippedPrefab = null;
+        [SerializeField] GameObject equippedPrefab = null;
+        [SerializeField] bool isRigghtHanded = true;
         public float WeaponRange {get => weaponRange;}
         public float WeaponDamage {get => weaponDamage;}
-        public void Spawn(Transform handTransform, Animator animator)
+        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
             if(null != equippedPrefab)
             {
-                Instantiate(equippedPrefab, handTransform);
+                Instantiate(equippedPrefab, isRigghtHanded ? rightHand : leftHand);
             }
             if(null != animatorOverride)
             {
