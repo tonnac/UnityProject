@@ -8,6 +8,9 @@
         [SerializeField] float speed = 1f;
         [SerializeField] bool isHoming = true;
         [SerializeField] GameObject hitEffect = null;
+        [SerializeField] float maxLifeTime = 10f;
+        [SerializeField] GameObject[] destroyOnHit = null;
+        [SerializeField] float lifeAfterImpact = 2f;
         Health target = null;
         float damage = 0f;
 
@@ -28,6 +31,8 @@
         {
             this.target = target;
             this.damage = damage;
+
+            Destroy(gameObject, maxLifeTime);
         }
 
         private Vector3 GetAimLocation()
@@ -43,14 +48,20 @@
         {
             if (other.GetComponent<Health>() != target) return;
             if(target.IsDead) return;
+            target.TakeDamage(damage);
+
+            speed = 0f;
+
             if(null != hitEffect)
             {
                 GameObject effectObj = Instantiate(hitEffect, GetAimLocation(), target.transform.rotation);
-                effectObj.GetComponent<ParticleSystem>().Play();
-                Destroy(effectObj, effectObj.GetComponent<ParticleSystem>().main.duration);
             }
-            target.TakeDamage(damage);
-            Destroy(gameObject);
+
+            foreach (GameObject toDestroy in destroyOnHit)
+            {
+                Destroy(toDestroy);
+            }
+            Destroy(gameObject, lifeAfterImpact);
         }
     }
 }
