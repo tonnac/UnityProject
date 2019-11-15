@@ -14,7 +14,8 @@
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [FormerlySerializedAs("equippedPrefab")]
         [SerializeField] GameObject equippedPrefab = null;
-        [SerializeField] bool isRigghtHanded = true;
+        [FormerlySerializedAs("isRigghtHanded")]
+        [SerializeField] bool isRightHanded = true;
         [SerializeField] Projectile projectile = null;
         readonly string weaponName = "Weapon";
 #endregion
@@ -58,7 +59,7 @@
 
         private Transform GetTransform(Transform rightHand, Transform leftHand)
         {
-            return isRigghtHanded ? rightHand : leftHand;
+            return isRightHanded ? rightHand : leftHand;
         }
 #endregion
     }

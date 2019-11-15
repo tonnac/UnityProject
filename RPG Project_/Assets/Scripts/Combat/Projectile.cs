@@ -7,6 +7,7 @@
     {
         [SerializeField] float speed = 1f;
         [SerializeField] bool isHoming = true;
+        [SerializeField] GameObject hitEffect = null;
         Health target = null;
         float damage = 0f;
 
@@ -42,6 +43,12 @@
         {
             if (other.GetComponent<Health>() != target) return;
             if(target.IsDead) return;
+            if(null != hitEffect)
+            {
+                GameObject effectObj = Instantiate(hitEffect, GetAimLocation(), target.transform.rotation);
+                effectObj.GetComponent<ParticleSystem>().Play();
+                Destroy(effectObj, effectObj.GetComponent<ParticleSystem>().main.duration);
+            }
             target.TakeDamage(damage);
             Destroy(gameObject);
         }
