@@ -32,9 +32,14 @@
                 GameObject weapon = Instantiate(equippedPrefab, GetTransform(rightHand, leftHand));
                 weapon.name = weaponName;
             }
+            var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
             if (null != animatorOverride)
-            {
+            { 
                 animator.runtimeAnimatorController = animatorOverride;
+            }
+            else if(null != overrideController)
+            {
+                animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
         }
         public bool HasProjectile()
