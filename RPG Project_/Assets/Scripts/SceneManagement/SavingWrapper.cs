@@ -35,7 +35,6 @@ namespace RPG.SceneManagement
         {
             GetComponent<SavingSystem>().Save(defaultSaveFile);
         }
-
         public void Load()
         {
             //call to saving system load

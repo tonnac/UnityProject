@@ -2,42 +2,46 @@
 {
     using RPG.Core;
     using UnityEngine;
-    
-    public class Projectile : MonoBehaviour 
+
+    public class Projectile : MonoBehaviour
     {
         [SerializeField] float speed = 1f;
+        [SerializeField] bool isHoming = true;
         Health target = null;
         float damage = 0f;
 
+        private void Start() 
+        {
+            transform.LookAt(GetAimLocation());
+        }
+        private void Update()
+        {
+            if (null == target) return;
+            if(isHoming && !target.IsDead)
+            {
+                transform.LookAt(GetAimLocation());
+            }
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        }
         public void SetTarget(Health target, float damage)
         {
             this.target = target;
             this.damage = damage;
-        }
-        private void Update() 
-        {
-            if(null == target) return;
-            if(target.IsDead)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            transform.LookAt(GetAimLocation());
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
         private Vector3 GetAimLocation()
         {
             CapsuleCollider targetCapsule = target.GetComponent<CapsuleCollider>();
 
-            return null == targetCapsule ? 
-            target.transform.position : 
+            return null == targetCapsule ?
+            target.transform.position :
             target.transform.position + Vector3.up * targetCapsule.height * 0.5f;
         }
 
-        private void OnTriggerEnter(Collider other) 
+        private void OnTriggerEnter(Collider other)
         {
-            if(other.GetComponent<Health>() != target) return;
+            if (other.GetComponent<Health>() != target) return;
+            if(target.IsDead) return;
             target.TakeDamage(damage);
             Destroy(gameObject);
         }

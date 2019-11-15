@@ -197,20 +197,14 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
-      propertyPath: rightHandTransform
-      value: 
-      objectReference: {fileID: 465438537848417380}
-    - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
-        type: 3}
       propertyPath: leftHandTransform
       value: 
       objectReference: {fileID: 465438537848343564}
     - target: {fileID: 5335769128601270803, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
-      propertyPath: defaultWeapon
+      propertyPath: rightHandTransform
       value: 
-      objectReference: {fileID: 11400000, guid: c414d07c46ecdde48897209c39dad23f,
-        type: 2}
+      objectReference: {fileID: 465438537848417380}
     - target: {fileID: 114230413218962826, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: healthPoints
