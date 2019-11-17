@@ -10,6 +10,7 @@
 #region Private Fields
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] float percentageBonus = 0f;
         [SerializeField] AnimatorOverrideController animatorOverride = null;
         [FormerlySerializedAs("equippedPrefab")]
         [SerializeField] GameObject equippedPrefab = null;
@@ -20,6 +21,7 @@
 #endregion
 
 #region Public Methods
+        public float PercentageBonus {get => percentageBonus;}
         public float WeaponRange {get => weaponRange;}
         public float WeaponDamage {get => weaponDamage;}
         public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
