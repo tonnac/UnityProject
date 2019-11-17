@@ -1,5 +1,6 @@
 ﻿namespace RPG.Stats
 {
+    using System;
     using UnityEngine;
     
     public class BaseStats : MonoBehaviour 
@@ -7,8 +8,11 @@
         [Range(1, 99)]
         [SerializeField] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass;
-        [SerializeField] Progression progression;
+        [SerializeField] Progression progression = null;
+        [SerializeField] GameObject levelUpParticleEffect = null;
+        public event Action onLevelUp;
         int currentLevel;
+
 
         private void Start() 
         {
@@ -24,9 +28,16 @@
             if(newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                print("levelled Up!");
+                onLevelUp();
+                LevelUpEffect();
             }
         }
+
+        private void LevelUpEffect()
+        {
+            Instantiate(levelUpParticleEffect, transform);
+        }
+
         public float GetStat(Stat stat)
         {
             return progression.GetStat(stat, characterClass, GetLevel());
