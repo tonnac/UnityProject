@@ -18,7 +18,7 @@ namespace RPG.Combat
         Weapon currentWeapon = null;
 #endregion        
 #region MonoBehaviour Callbacks
-        private void Start()
+        private void Awake()
         {
             if(null == currentWeapon)
             {
