@@ -11,22 +11,30 @@
         {
             //TODO
             var a = from progressionClass in characterClasses 
-            where progressionClass.characterClass == characterClass && progressionClass.health.Length >= level
-            select progressionClass.health[level - 1];
+            where progressionClass.characterClass == characterClass && progressionClass.stats.Length >= level
+            select progressionClass.stats[level - 1];
 
             if(a.Count() <= 0)
             {
                 Debug.LogError($"{characterClass}, Level: {level} is null");
             }
 
-            return a.SingleOrDefault();
+            return a.SingleOrDefault().levels[0];
         }
 
         [System.Serializable]
         class ProgressionCharacterClass
         {
             public CharacterClass characterClass;
-            public float[] health = null;
+            public ProgressionStat[] stats = null;
+            //public float[] health = null;
+        }
+
+        [System.Serializable]
+        class ProgressionStat
+        {
+            public Stat stat;
+            public float[] levels;
         }
     }
 }
