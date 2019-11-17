@@ -1,4 +1,4 @@
-namespace RPG.ExperienceDisplay
+namespace RPG.Stats
 {
     using RPG.Resources;
     using UnityEngine;

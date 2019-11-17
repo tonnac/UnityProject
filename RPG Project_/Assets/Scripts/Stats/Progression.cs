@@ -12,6 +12,12 @@
 
         Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
 
+        public int GetLevels(Stat stat, CharacterClass characterClass)
+        {
+            BuildLookup();
+            float[] levels = lookupTable[characterClass][stat];
+            return levels.Length;
+        }
 
         public float GetStat(Stat stat, CharacterClass characterClass, int level)
         {
