@@ -3008,11 +3008,6 @@ PrefabInstance:
       propertyPath: level
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3975337276193211508, guid: 9bda42ef52d2e784ea87ef2339c65438,
-        type: 3}
-      propertyPath: regenerationPercentage
-      value: 60
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bda42ef52d2e784ea87ef2339c65438, type: 3}
 --- !u!1001 &753334943650958105

@@ -13,7 +13,7 @@ namespace RPG.Resources
 
         private void Update() 
         {
-            GetComponent<Text>().text = string.Format("{0:0}%", health.GetPercentage());
+            GetComponent<Text>().text = $"{health.GetHealthPoints()} / {health.GetMaxHealthPoints()}";
         }
     }
 }
