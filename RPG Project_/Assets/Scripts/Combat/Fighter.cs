@@ -47,6 +47,7 @@ namespace RPG.Combat
         }
 #endregion        
 #region Public Methods
+        public Health GetTarget() => target;
         public bool CanAttack(GameObject combatTarget)
         {
             if(combatTarget == null) return false;
