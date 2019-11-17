@@ -1,9 +1,10 @@
 ﻿namespace RPG.Stats
 {
     using System;
+    using System.Collections.Generic;
     using UnityEngine;
     
-    public class BaseStats : MonoBehaviour 
+    public class BaseStats : MonoBehaviour
     {
         [Range(1, 99)]
         [SerializeField] int startingLevel = 1;
@@ -37,11 +38,25 @@
         {
             Instantiate(levelUpParticleEffect, transform);
         }
+        public float GetAdditiveModifier(Stat stat)
+        {
+            float total = 0f;
+            foreach (IModifierProvider provider in GetComponents<IModifierProvider>())
+            {
+                foreach (float modifiers in provider.GetAdditiveModifier(stat))
+                {
+                    total += modifiers;
+                }
+            }
+            return total;
+        }
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, GetLevel());
+            return progression.GetStat(stat, characterClass, GetLevel()) + GetAdditiveModifier(stat);
         }
+
+
         public int GetLevel()
         {
             if(currentLevel < 1)

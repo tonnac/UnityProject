@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RPG.Core;
 using RPG.Movement;
 using RPG.Resources;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
 #region Private Fields        
         [SerializeField] float timeBetweenAttack = 1f;
@@ -85,6 +86,15 @@ namespace RPG.Combat
             EquipWeapon(UnityEngine.Resources.Load<Weapon>((string)state));
         }
 #endregion
+#region IModifierProvider Implementation
+        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        {
+            if(stat == Stat.Damage)
+            {
+                yield return currentWeapon.WeaponDamage;
+            }
+        }
+#endregion        
 #region Private Methods        
         private void AttackBehaviour()
         {
@@ -135,6 +145,7 @@ namespace RPG.Combat
         {
             Hit();
         }
+
 #endregion
     }
 }
