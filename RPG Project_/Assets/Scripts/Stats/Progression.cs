@@ -7,19 +7,40 @@
     public class Progression : ScriptableObject 
     {
         [SerializeField] ProgressionCharacterClass[] characterClasses = null;
-        public float GetHealth(CharacterClass characterClass, int level)
+        public float GetStat(Stat stat, CharacterClass characterClass, int level)
         {
-            //TODO
-            var a = from progressionClass in characterClasses 
-            where progressionClass.characterClass == characterClass && progressionClass.stats.Length >= level
-            select progressionClass.stats[level - 1];
+            // foreach (ProgressionCharacterClass progressionClass in characterClasses)
+            // {
+            //     if(progressionClass.characterClass != characterClass) continue;
 
-            if(a.Count() <= 0)
+            //     foreach (ProgressionStat progressionStat in progressionClass.stats)
+            //     {
+            //         if(progressionStat.stat != stat) continue;
+            //         if(progressionStat.levels.Length < level) continue;
+
+            //         return progressionStat.levels[level - 1];
+            //     }
+            // }
+
+            var a = from progressionClass in characterClasses 
+            where progressionClass.characterClass == characterClass
+            select progressionClass.stats;
+
+            if(a.Count() < 1)
             {
-                Debug.LogError($"{characterClass}, Level: {level} is null");
+                Debug.LogError($"{characterClass}, stats is null");
             }
 
-            return a.SingleOrDefault().levels[0];
+            var b = from progressionStat in a.Single()
+            where progressionStat.stat == stat && progressionStat.levels.Length >= level
+            select progressionStat.levels[level - 1];
+
+            if(b.Count() < 1)
+            {
+                Debug.LogError($"{stat} of {characterClass}, Level: {level} is null");
+            }
+
+            return b.SingleOrDefault();
         }
 
         [System.Serializable]

@@ -719,6 +719,11 @@ PrefabInstance:
       propertyPath: defaultWeaponName
       value: Bow Blue Projectile
       objectReference: {fileID: 0}
+    - target: {fileID: 4442321364831443218, guid: 66e89dc6f71353045a56207c1d06d0a6,
+        type: 3}
+      propertyPath: level
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66e89dc6f71353045a56207c1d06d0a6, type: 3}
 --- !u!1 &418635761
