@@ -8,12 +8,38 @@
         [SerializeField] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression;
+        int currentLevel;
+
+        private void Start() 
+        {
+            currentLevel = GetLevel();
+            Experience experience = GetComponent<Experience>();
+            if(null == experience) return;
+            experience.onExperienceGained += UpdateLevel;
+        }
+
+        private void UpdateLevel() 
+        {
+            int newLevel = CalculateLevel();
+            if(newLevel > currentLevel)
+            {
+                currentLevel = newLevel;
+                print("levelled Up!");
+            }
+        }
         public float GetStat(Stat stat)
         {
             return progression.GetStat(stat, characterClass, GetLevel());
         }
-
         public int GetLevel()
+        {
+            if(currentLevel < 1)
+            {
+                currentLevel = CalculateLevel();
+            }
+            return currentLevel;
+        }
+        public int CalculateLevel()
         {
             Experience experience = GetComponent<Experience>();
             if(null == experience) return startingLevel;
