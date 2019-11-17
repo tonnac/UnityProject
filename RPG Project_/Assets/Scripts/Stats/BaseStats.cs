@@ -8,14 +8,6 @@
         [SerializeField] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass;
         [SerializeField] Progression progression;
-
-        private void Update() 
-        {
-            if(gameObject.tag == "Player")
-            {
-                print(GetLevel());
-            }
-        }
         public float GetStat(Stat stat)
         {
             return progression.GetStat(stat, characterClass, GetLevel());
