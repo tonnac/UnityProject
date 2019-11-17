@@ -1,9 +1,8 @@
-using System;
 using RPG.Core;
 using RPG.Movement;
+using RPG.Resources;
 using RPG.Saving;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace RPG.Combat
 {
@@ -82,7 +81,7 @@ namespace RPG.Combat
 
         public void RestoreState(object state)
         {
-            EquipWeapon(Resources.Load<Weapon>((string)state));
+            EquipWeapon(UnityEngine.Resources.Load<Weapon>((string)state));
         }
 #endregion
 #region Private Methods        
@@ -113,7 +112,7 @@ namespace RPG.Combat
         }
         private Weapon GetWeapon()
         {
-            return Resources.Load<Weapon>(defaultWeaponName);
+            return UnityEngine.Resources.Load<Weapon>(defaultWeaponName);
         }
 #endregion
 #region Animation Event

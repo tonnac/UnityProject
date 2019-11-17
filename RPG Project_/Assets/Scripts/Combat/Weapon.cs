@@ -1,7 +1,6 @@
 ﻿namespace RPG.Combat
 {
-    using System;
-    using RPG.Core;
+    using RPG.Resources;
     using UnityEngine;
     using UnityEngine.Serialization;
 
