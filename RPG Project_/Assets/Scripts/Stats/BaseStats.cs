@@ -16,13 +16,29 @@
         public event Action onLevelUp;
         int currentLevel;
 
+        Experience experience;
+
 #region MonoBehaviour Callbacks
+
+        private void Awake() 
+        {
+            experience = GetComponent<Experience>();
+        }
         private void Start() 
         {
-            currentLevel = GetLevel();
-            Experience experience = GetComponent<Experience>();
+            currentLevel = CalculateLevel();
+        }
+
+        private void OnEnable() 
+        {
             if(null == experience) return;
             experience.onExperienceGained += UpdateLevel;
+        }
+
+        private void OnDisable() 
+        {
+            if(null == experience) return;
+            experience.onExperienceGained -= UpdateLevel;
         }
 #endregion
 

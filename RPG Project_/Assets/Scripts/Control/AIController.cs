@@ -23,14 +23,16 @@ namespace RPG.Control
         float timeSinceLastSawPlayer = float.PositiveInfinity;
         float timeSinceArrivedAtWaypoint = float.PositiveInfinity;
         int currentWaypointIndex = 0;
-        private void Start() 
+        private void Awake() 
         {
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
-
-            guardPosition = transform.position;
+        }
+        private void Start() 
+        {
+            guardPosition = transform.position;    
         }
 
         private void Update()
