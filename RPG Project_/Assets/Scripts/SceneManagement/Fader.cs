@@ -2,11 +2,11 @@ namespace RPG.SceneManagement
 {
     using System.Collections;
     using UnityEngine;
-    public class Fader : MonoBehaviour 
+    public class Fader : MonoBehaviour
     {
         CanvasGroup canvasGroup;
 
-        private void Start() 
+        private void Awake() 
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }
