@@ -175,6 +175,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regenerationPercentage: 70
+  takeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8279904802332849086}
+        m_MethodName: Spawn
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 15
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &136632174089795924
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -235,19 +249,6 @@ MonoBehaviour:
   progression: {fileID: 11400000, guid: 2cb7cf01e27866a40ab2c8e2de6614cb, type: 2}
   levelUpParticleEffect: {fileID: 0}
   shouldUseModifiers: 0
---- !u!114 &426195968029453091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5765289594386841887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d6ff50bcd4d4b042bd1f88f60bc2696, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageTextPrefab: {fileID: 0}
 --- !u!1001 &1174482161315590912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -282,15 +283,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce3c6e0a0c87b142b05c3f2b8212117, type: 3}
---- !u!1 &5765289594386841887 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4633910560919958047, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
-    type: 3}
-  m_PrefabInstance: {fileID: 1174482161315590912}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &560969821396447220 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1694600688366198004, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
     type: 3}
   m_PrefabInstance: {fileID: 1174482161315590912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8279904802332849086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7108009251253387454, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
+    type: 3}
+  m_PrefabInstance: {fileID: 1174482161315590912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6ff50bcd4d4b042bd1f88f60bc2696, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
