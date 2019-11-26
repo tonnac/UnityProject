@@ -12,7 +12,11 @@ namespace RPG.Resources
     {
         [Range(1, 100)]
         [SerializeField] float regenerationPercentage = 70f;
-        [SerializeField] UnityEvent takeDamage;
+        [SerializeField] TakeDamageEvent takeDamage;
+
+        [Serializable]
+        public class TakeDamageEvent : UnityEvent<float> {}
+
         LazyValue<float> healthPoints;
         bool isDead = false;
 
@@ -54,7 +58,7 @@ namespace RPG.Resources
             }
             else
             {
-                takeDamage.Invoke();
+                takeDamage.Invoke(damage);
             }
         }
 

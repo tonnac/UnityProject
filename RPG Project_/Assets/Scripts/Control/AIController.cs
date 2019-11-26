@@ -46,7 +46,7 @@ namespace RPG.Control
 
         private void Update()
         {
-            if(health.IsDead) return;
+            if (health.IsDead) return;
             if (InAttackRangeOfPlayer() && fighter.CanAttack(player))
             {
                 timeSinceLastSawPlayer = 0f;
