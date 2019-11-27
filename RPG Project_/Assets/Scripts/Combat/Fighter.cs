@@ -18,12 +18,12 @@ namespace RPG.Combat
         [SerializeField] string defaultWeaponName = "Unarmed";
         Health target;
         float timeSinceLastAttack = float.PositiveInfinity;
-        LazyValue<Weapon> currentWeapon = null;
+        LazyValue<WeaponConfig> currentWeapon = null;
 #endregion        
 #region MonoBehaviour Callbacks
         private void Awake()
         {
-            currentWeapon = new LazyValue<Weapon>(GetInitialWeapon);
+            currentWeapon = new LazyValue<WeaponConfig>(GetInitialWeapon);
         }
 
         private void Start() 
@@ -31,9 +31,9 @@ namespace RPG.Combat
             currentWeapon.ForceInit();
         }
 
-        private Weapon GetInitialWeapon()
+        private WeaponConfig GetInitialWeapon()
         {
-            Weapon weapon = UnityEngine.Resources.Load<Weapon>(defaultWeaponName);
+            WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(defaultWeaponName);
             AttachWeapon(weapon);
             return weapon;
         }
@@ -78,13 +78,13 @@ namespace RPG.Combat
             target = null;
             GetComponent<Mover>().Cancle();
         }
-        public void EquipWeapon(Weapon weapon)
+        public void EquipWeapon(WeaponConfig weapon)
         {
             currentWeapon.value = weapon;
             AttachWeapon(weapon);
         }
 
-        private void AttachWeapon(Weapon weapon)
+        private void AttachWeapon(WeaponConfig weapon)
         {
             weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
         }
@@ -97,7 +97,7 @@ namespace RPG.Combat
 
         public void RestoreState(object state)
         {
-            EquipWeapon(UnityEngine.Resources.Load<Weapon>((string)state));
+            EquipWeapon(UnityEngine.Resources.Load<WeaponConfig>((string)state));
         }
 #endregion
 #region IModifierProvider Implementation
@@ -144,9 +144,9 @@ namespace RPG.Combat
             GetComponent<Animator>().ResetTrigger("attack");
             GetComponent<Animator>().SetTrigger("stopAttack");
         }
-        private Weapon GetWeapon()
+        private WeaponConfig GetWeapon()
         {
-            return UnityEngine.Resources.Load<Weapon>(defaultWeaponName);
+            return UnityEngine.Resources.Load<WeaponConfig>(defaultWeaponName);
         }
 #endregion
 #region Animation Event
