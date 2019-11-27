@@ -6,6 +6,7 @@ using RPG.Attributes;
 using RPG.Saving;
 using RPG.Stats;
 using UnityEngine;
+using System;
 
 namespace RPG.Combat
 {
@@ -16,14 +17,22 @@ namespace RPG.Combat
         [SerializeField] Transform leftHandTransform = null;
         [SerializeField] Transform rightHandTransform = null;
         [SerializeField] string defaultWeaponName = "Unarmed";
+        [SerializeField] WeaponConfig defaultWeapon = null;
         Health target;
         float timeSinceLastAttack = float.PositiveInfinity;
-        LazyValue<WeaponConfig> currentWeapon = null;
+        WeaponConfig currentWeaponConfig = null;
+        LazyValue<Weapon> currentWeapon;
 #endregion        
 #region MonoBehaviour Callbacks
         private void Awake()
         {
-            currentWeapon = new LazyValue<WeaponConfig>(GetInitialWeapon);
+            currentWeaponConfig = defaultWeapon;
+            currentWeapon = new LazyValue<Weapon>(SetupDefaultWeapon);
+        }
+
+        private Weapon SetupDefaultWeapon()
+        {
+            return AttachWeapon(defaultWeapon);
         }
 
         private void Start() 
@@ -31,12 +40,12 @@ namespace RPG.Combat
             currentWeapon.ForceInit();
         }
 
-        private WeaponConfig GetInitialWeapon()
-        {
-            WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(defaultWeaponName);
-            AttachWeapon(weapon);
-            return weapon;
-        }
+        // private WeaponConfig GetInitialWeapon()
+        // {
+        //     WeaponConfig weapon = UnityEngine.Resources.Load<WeaponConfig>(defaultWeaponName);
+        //     AttachWeapon(weapon);
+        //     return weapon;
+        // }
 
 
         private void Update()
@@ -80,19 +89,19 @@ namespace RPG.Combat
         }
         public void EquipWeapon(WeaponConfig weapon)
         {
-            currentWeapon.value = weapon;
-            AttachWeapon(weapon);
+            currentWeaponConfig = weapon;
+            currentWeapon.value = AttachWeapon(weapon);
         }
 
-        private void AttachWeapon(WeaponConfig weapon)
+        private Weapon AttachWeapon(WeaponConfig weapon)
         {
-            weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
+            return weapon.Spawn(rightHandTransform, leftHandTransform, GetComponent<Animator>());
         }
         #endregion
         #region ISaveable Implementation
         public object CaptureState()
         {
-            return currentWeapon.value.name;
+            return currentWeaponConfig.name;
         }
 
         public void RestoreState(object state)
@@ -105,7 +114,7 @@ namespace RPG.Combat
         {
             if(stat == Stat.Damage)
             {
-                yield return currentWeapon.value.WeaponDamage;
+                yield return currentWeaponConfig.WeaponDamage;
             }
         }
         
@@ -113,7 +122,7 @@ namespace RPG.Combat
         {
             if(stat == Stat.Damage)
             {
-                yield return currentWeapon.value.PercentageBonus;
+                yield return currentWeaponConfig.PercentageBonus;
             }
         }
 
@@ -137,7 +146,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.value.WeaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeaponConfig.WeaponRange;
         }        
         private void StopAttack()
         {
@@ -155,9 +164,15 @@ namespace RPG.Combat
             if(null == target) return;
 
             float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
-            if(currentWeapon.value.HasProjectile())
+
+            if(null != currentWeapon.value)
             {
-                currentWeapon.value.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
+                currentWeapon.value.OnHit();
+            }
+
+            if(currentWeaponConfig.HasProjectile())
+            {
+                currentWeaponConfig.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {

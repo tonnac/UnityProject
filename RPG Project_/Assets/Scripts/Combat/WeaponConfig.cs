@@ -24,13 +24,14 @@
         public float PercentageBonus {get => percentageBonus;}
         public float WeaponRange {get => weaponRange;}
         public float WeaponDamage {get => weaponDamage;}
-        public void Spawn(Transform rightHand, Transform leftHand, Animator animator)
+        public Weapon Spawn(Transform rightHand, Transform leftHand, Animator animator)
         {
             DestroyOldWeapon(rightHand, leftHand);
 
+            Weapon weapon = null;
             if(null != equippedPrefab)
             {
-                Weapon weapon = Instantiate(equippedPrefab, GetTransform(rightHand, leftHand));
+                weapon = Instantiate(equippedPrefab, GetTransform(rightHand, leftHand));
                 weapon.gameObject.name = weaponName;
             }
             var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
@@ -42,6 +43,7 @@
             {
                 animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
             }
+            return weapon;
         }
         public bool HasProjectile()
         {

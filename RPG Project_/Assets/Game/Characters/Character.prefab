@@ -151,6 +151,7 @@ MonoBehaviour:
   leftHandTransform: {fileID: 0}
   rightHandTransform: {fileID: 0}
   defaultWeaponName: Unarmed
+  defaultWeapon: {fileID: 11400000, guid: 92a3b7fb519fdad4fbc437a17ae5e69a, type: 2}
 --- !u!114 &2392946504277282197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +569,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4593845876468296130}
     m_Modifications:
+    - target: {fileID: 4633910560919958047, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
+        type: 3}
+      propertyPath: m_Name
+      value: Damage Text Spawner
+      objectReference: {fileID: 0}
     - target: {fileID: 1694600688366198004, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
         type: 3}
       propertyPath: m_RootOrder
@@ -592,11 +598,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.241
-      objectReference: {fileID: 0}
-    - target: {fileID: 4633910560919958047, guid: 4ce3c6e0a0c87b142b05c3f2b8212117,
-        type: 3}
-      propertyPath: m_Name
-      value: Damage Text Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ce3c6e0a0c87b142b05c3f2b8212117, type: 3}
