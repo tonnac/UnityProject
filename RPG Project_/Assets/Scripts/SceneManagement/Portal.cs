@@ -7,7 +7,8 @@ namespace RPG.SceneManagement
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using UnityEngine.AI;
-    
+    using RPG.Control;
+
     public class Portal : MonoBehaviour 
     {
         enum DestinationIdentifier
@@ -44,13 +45,18 @@ namespace RPG.SceneManagement
             DontDestroyOnLoad(gameObject);
 
             Fader fader = FindObjectOfType<Fader>();
-            
+            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+
+            PlayerController playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            playerController.enabled = false;
+      
             yield return fader.FadeOut(fadeOutTime);
 
-            SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
             wrapper.Save();
 
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
+            playerController = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            playerController.enabled = false;
 
             wrapper.Load();
             
@@ -60,8 +66,9 @@ namespace RPG.SceneManagement
             wrapper.Save();
 
             yield return new WaitForSeconds(fadeWaitTime);
-            yield return fader.FadeIn(fadeInTime);
+            fader.FadeIn(fadeInTime);
 
+            playerController.enabled = true;
             Destroy(gameObject);
         }
 
