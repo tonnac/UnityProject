@@ -28,6 +28,8 @@ MonoBehaviour:
   - type: 4
     texture: {fileID: 2800000, guid: 13b47201502803547bf2c87d10639cb9, type: 3}
     hotspot: {x: 0, y: 0}
+  maxNavMeshProjectionDistance: 1
+  maxNavPathLength: 40
 --- !u!114 &4415869135467569833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,22 +188,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
-        type: 3}
-      propertyPath: characterClass
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
-        type: 3}
-      propertyPath: levelUpParticleEffect
-      value: 
-      objectReference: {fileID: 2967623790763138321, guid: ee47ffb963a749e47904cba60ccc3ae5,
-        type: 3}
-    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
-        type: 3}
-      propertyPath: shouldUseModifiers
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5018286147055786476, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: m_Enabled
@@ -255,10 +241,31 @@ PrefabInstance:
       propertyPath: healthPoints
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 560969821396447220, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3224785635636292704, guid: 094bcdd7dd8709c4a9f0926254e43619,
         type: 3}
       propertyPath: uniqueIdentifier
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: characterClass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: levelUpParticleEffect
+      value: 
+      objectReference: {fileID: 2967623790763138321, guid: ee47ffb963a749e47904cba60ccc3ae5,
+        type: 3}
+    - target: {fileID: 6595051066511118902, guid: 094bcdd7dd8709c4a9f0926254e43619,
+        type: 3}
+      propertyPath: shouldUseModifiers
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094bcdd7dd8709c4a9f0926254e43619, type: 3}
