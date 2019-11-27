@@ -2,6 +2,7 @@
 {
     using RPG.Attributes;
     using UnityEngine;
+    using UnityEngine.Events;
 
     public class Projectile : MonoBehaviour
     {
@@ -11,6 +12,7 @@
         [SerializeField] float maxLifeTime = 10f;
         [SerializeField] GameObject[] destroyOnHit = null;
         [SerializeField] float lifeAfterImpact = 2f;
+        [SerializeField] UnityEvent onHit;
         Health target = null;
         GameObject instigator = null;
         float damage = 0f;
@@ -54,6 +56,8 @@
 
             speed = 0f;
 
+            onHit.Invoke();
+            
             if(null != hitEffect)
             {
                 GameObject effectObj = Instantiate(hitEffect, GetAimLocation(), target.transform.rotation);
