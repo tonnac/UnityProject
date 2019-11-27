@@ -1,7 +1,6 @@
 namespace RPG.Core
 {
     using UnityEngine;
-    using UnityEngine.UI;
 
     public class CameraFacing : MonoBehaviour 
     {
